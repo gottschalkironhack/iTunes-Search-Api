@@ -1,30 +1,29 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import bookMarkAsFavorite from '../../../actions/addFavorites';
+import deleteBookMark from '../../../actions/deleteFavorite';
 import { SongsList } from './SongsList/SongsList';
 import { LoadingSpinner } from '../../LoadingSpinner/LoadingSpinner';
 
 class SongsContainer extends Component {
   
-  addToFavorites(id){
-    console.log('add to favorites', id)
+  addToFavorites = (id) => {
+    this.props.dispatch(bookMarkAsFavorite(id));
+  }
 
-    //handle statemanagement
+  deleteFromBookMarks = (id) => {
+    this.props.dispatch(deleteBookMark(id));
   }
 
   render() {
     const { songs, loading } = this.props;
-    console.log(this.props)
-    console.log('loading', loading)
     if (loading) return <LoadingSpinner />;
-    return <SongsList addToFavorites={this.addToFavorites} songs={songs} />
+    return <SongsList addToFavorites={this.addToFavorites} deleteBookMark={this.deleteFromBookMarks} songs={songs} />
   }
 }
 
 const mapStateToProps = ({ songs, fetching }) => {
-  // console.log('state', state)
-  // const { loading, songs } = state;
-  console.log('updating')
   return { 
     songs, 
     loading: fetching.status 

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Form } from 'react-bootstrap';
-import { getSongsData } from '../../actions/getSongsData';
+import { getSongsData } from '../../../actions/getSongsData';
 import debounce from 'lodash/debounce';
 import { connect } from 'react-redux';
 
@@ -13,7 +13,7 @@ class Search extends Component {
       e.persist();
       return this.debouncedEvent(e);
     }
-  } 
+  };
 
   handleOnChange = (e) => {
     const searchQuery = e.target.value;

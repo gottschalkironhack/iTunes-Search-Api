@@ -17,13 +17,13 @@ class Dashboard extends Component{
   render(){
     const { error, loading } = this.props;
     const SongsContainerUx = loading ? null : <SongsContainer/>;
-    const Error = error.status 
+    const ErrorUx = error.status 
     ? <ErrorAlert message={error.message} />  
     : null;
 
     return (
       <Fragment>
-        { Error }
+        { ErrorUx }
         { SongsContainerUx }
       </Fragment>
     );

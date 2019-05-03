@@ -3,10 +3,15 @@ import PropTypes from 'prop-types';
 import { Row } from 'react-bootstrap';
 import { Song } from './Song/Song';
 
-export const SongsList = ({ songs, addToFavorites }) => {
-  const song = songs.songs.map(song => {
+export const SongsList = ({ songs, addToFavorites, deleteBookMark }) => {
+  const song = songs.songs.map((song, index) => {
     return (
-      <Song addToFavorite={addToFavorites} song={song} key={song.trackId}/>
+      <Song 
+        addToFavorites={addToFavorites}
+        song={song}
+        key={index}
+        deleteBookMark={deleteBookMark}
+      />
     )
   });
   return <Row className="mt-3"> {song}</Row>

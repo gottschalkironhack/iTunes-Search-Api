@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import {
   Col,
@@ -6,21 +6,31 @@ import {
 } from 'react-bootstrap';
 import './styles.scss';
 
-export const Song = ({ song }) => {
+export const Song = ({ song, addToFavorites, deleteBookMark }) => {
+  //let songSelected = 'song-favorite';
+  const [songSelected, setSelected] = useState('');
+  const iconClass = `${songSelected} fas fa-heart`
   const {
     trackId,
     trackName,
     collectionName,
     artworkUrl100,
-    addToFavorites,
   } = song;
 
-  function handleClick (){
-    addToFavorites(trackId)
+  function toggleClass() {
+    songSelected === '' ? setSelected('song-favorite') : setSelected('');
+  }
+
+  const handleClick = () => {
+    toggleClass();
+    if (songSelected === 'song-favorite') deleteBookMark(trackId);
+    else{ 
+      return addToFavorites(trackId);
+    }
   }
 
   const songUX = 
-    <Col sm="12" md="3">
+    <Col sm="12" md="3" key={trackId}>
       <Card>
         <Card.Img className='album-image' src={artworkUrl100} />
         <Card.Body>
@@ -31,7 +41,7 @@ export const Song = ({ song }) => {
             {collectionName}
           </Card.Text>
         </Card.Body>
-        <div id={trackId} onClick={handleClick} />
+        <div className='text-right mr-3 mb-3' id={trackId} onClick={handleClick}><i className={iconClass}></i></div>
       </Card>
     </Col>
   
